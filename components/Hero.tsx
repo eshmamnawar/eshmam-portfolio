@@ -78,8 +78,8 @@ export default function Hero() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
           >
-            Undergraduate student at Swinburne University of Technology | Major
-            Software Development | Former SWE Resident at Headstarter AI
+            Software Development graduate from Swinburne University of Technology | 
+            Former SWE Resident at Headstarter AI
           </motion.p>
 
           <motion.div

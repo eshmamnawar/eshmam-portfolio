@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Eshmam Nawar | Software Developer",
-  description: "Software Development student at Swinburne University passionate about building efficient, elegant digital solutions and exploring the frontiers of AI.",
+  description: "Software Development graduate from Swinburne University of Technology passionate about building efficient, elegant digital solutions and exploring the frontiers of AI.",
   keywords: ["Eshmam Nawar", "Software Developer", "React", "Next.js", "AI", "Web Development"],
 };
 

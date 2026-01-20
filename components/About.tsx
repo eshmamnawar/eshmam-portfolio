@@ -34,18 +34,18 @@ export default function About() {
           >
             <p className="text-sm sm:text-base text-gray-400 leading-relaxed font-light">
               Hi, I'm <span className="text-cyan-400 font-normal">Eshmam Nawar</span>, a
-              Software Development student at{" "}
+              Software Development graduate from{" "}
               <span className="text-purple-400 font-normal">
-                Swinburne University
+                Swinburne University of Technology
               </span>{" "}
-              passionate about building efficient, elegant digital solutions and
-              exploring the frontiers of AI.
+              with a passion for crafting efficient, elegant digital solutions and
+              exploring the frontiers of <span className="text-cyan-400">artificial intelligence</span>.
             </p>
             <p className="text-sm sm:text-base text-gray-400 leading-relaxed font-light">
-              As a former <span className="text-cyan-400">Fellow & Resident at SWE Headstarter AI</span>, I've worked on AI-driven innovations that push the boundaries of what's possible. I'm experienced in modern web technologies and focused on practical AI, automation, and clean development architecture.
+              As an aspiring <span className="text-cyan-400 font-normal">AI engineer</span>, I'm dedicated to building dependable and impactful intelligent systems that amplify human potential while ensuring inclusivity and accessibility for all.
             </p>
             <p className="text-sm sm:text-base text-gray-400 leading-relaxed font-light">
-              I'm an advocate for open-source collaboration and continuous learning, always seeking to improve my skills and contribute to meaningful projects.
+              During my time as a <span className="text-cyan-400">Fellow & Resident at SWE Headstarter AI</span>, I contributed to AI-driven innovations that push the boundaries of what's possible. I bring expertise in modern web technologies and a strong focus on <span className="text-cyan-400">practical AI applications</span>, automation, and clean development architecture.
             </p>
           </motion.div>
 
@@ -66,6 +66,7 @@ export default function About() {
                     Swinburne University of Technology
                   </h4>
                   <p className="text-gray-500 text-xs sm:text-sm font-light">Bachelor of Software Development</p>
+                  <p className="text-gray-500 text-xs sm:text-sm font-light">Graduated: December 2025</p>
                   <p className="text-xs text-gray-600 font-light">Melbourne, Australia</p>
                 </div>
               </div>
