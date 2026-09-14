@@ -1,94 +1,200 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { GraduationCap, Target, MapPin, Briefcase } from "lucide-react";
+import SectionHeading from "./SectionHeading";
+
+const education = [
+  {
+    qualification: "Bachelor of Software Development",
+    institution: "Swinburne University of Technology",
+    tags: ["Graduated Dec 2025", "Melbourne, AU"],
+  },
+  {
+    qualification: "Higher Secondary Certificate (HSC)",
+    institution: "Milestone School and College",
+    tags: ["GPA 5.00 / 5.00", "Session 2018-2019"],
+  },
+  {
+    qualification: "Secondary School Certificate (SSC)",
+    institution: "Milestone School and College",
+    tags: ["GPA 5.00 / 5.00", "Session 2016-2017"],
+  },
+];
+
+const interests = [
+  "AI-powered products",
+  "Intelligent systems",
+  "Scalable software",
+  "Technology-driven businesses",
+];
 
 export default function About() {
   return (
-    <section
-      id="about"
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-black"
-    >
-      <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-light mb-3 sm:mb-4 tracking-tight px-4">
-            <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-              About Me
-            </span>
-          </h2>
-          <div className="w-12 sm:w-16 h-px bg-gradient-to-r from-cyan-400 to-purple-400 mx-auto"></div>
-        </motion.div>
+    <section id="about" className="py-20 sm:py-24 px-4 sm:px-6 lg:px-8">
+      <div className="container-page">
+        <SectionHeading eyebrow="Who I am" title="About Me" />
 
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
+        <div className="grid lg:grid-cols-2 gap-7 lg:gap-9 items-start">
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-70px" }}
             transition={{ duration: 0.6 }}
-            className="space-y-4 sm:space-y-6"
+            className="neu-card p-7 sm:p-9 space-y-5"
           >
-            <p className="text-sm sm:text-base text-gray-400 leading-relaxed font-light">
-              Hi, I'm <span className="text-cyan-400 font-normal">Eshmam Nawar</span>, a
-              Software Development graduate from{" "}
-              <span className="text-purple-400 font-normal">
-                Swinburne University of Technology
+            <p className="text-sm sm:text-base text-ink-muted leading-relaxed">
+              Hi, I&apos;m <span className="text-accent font-semibold">Eshmam Nawar</span>, a{" "}
+              <span className="text-ink font-semibold">
+                Software Development graduate from Swinburne University of
+                Technology
               </span>{" "}
-              with a passion for crafting efficient, elegant digital solutions and
-              exploring the frontiers of <span className="text-cyan-400">artificial intelligence</span>.
+              and currently working as a{" "}
+              <span className="text-accent font-semibold">
+                Project Manager &amp; Technical Lead at Limitless Technologies
+              </span>
+              .
             </p>
-            <p className="text-sm sm:text-base text-gray-400 leading-relaxed font-light">
-              As an aspiring <span className="text-cyan-400 font-normal">AI engineer</span>, I'm dedicated to building dependable and impactful intelligent systems that amplify human potential while ensuring inclusivity and accessibility for all.
+
+            <p className="text-sm sm:text-base text-ink-muted leading-relaxed">
+              I work at the intersection of{" "}
+              <span className="text-ink font-semibold">
+                product, business, and technology
+              </span>
+              , helping transform ideas into well-defined and scalable digital
+              products. My work spans product strategy, MVP planning, software
+              architecture, technical decision-making, vendor management,
+              security considerations, and translating business requirements
+              into clear technical direction.
             </p>
-            <p className="text-sm sm:text-base text-gray-400 leading-relaxed font-light">
-              During my time as a <span className="text-cyan-400">Fellow & Resident at SWE Headstarter AI</span>, I contributed to AI-driven innovations that push the boundaries of what's possible. I bring expertise in modern web technologies and a strong focus on <span className="text-cyan-400">practical AI applications</span>, automation, and clean development architecture.
+
+            <p className="text-sm sm:text-base text-ink-muted leading-relaxed">
+              Previously, as a{" "}
+              <span className="text-ink font-semibold">
+                Fellow &amp; Software Engineering Resident at Headstarter AI
+              </span>
+              , I worked on AI and full-stack projects that strengthened my
+              experience in{" "}
+              <span className="text-accent font-medium">
+                applied AI, automation, modern software development, and
+                building practical technology solutions
+              </span>
+              .
             </p>
+
+            <p className="text-sm sm:text-base text-ink-muted leading-relaxed">
+              With a foundation in software development and a growing focus on{" "}
+              <span className="text-accent font-semibold">AI engineering</span>, I
+              enjoy understanding both how products should work and how the
+              technology behind them should be designed. I&apos;m particularly
+              interested in{" "}
+              <span className="text-ink font-semibold">
+                AI-powered products, intelligent systems, scalable software, and
+                technology-driven businesses
+              </span>
+              .
+            </p>
+
+            <p className="text-sm sm:text-base text-ink-muted leading-relaxed">
+              My long-term goal is to combine{" "}
+              <span className="text-accent font-semibold">
+                technical depth, product thinking, and leadership
+              </span>{" "}
+              to build and lead impactful technology products.
+            </p>
+
+            <div className="flex items-center gap-2.5 pt-2 text-xs text-ink-faint">
+              <MapPin size={14} />
+              <span>Melbourne, Australia</span>
+            </div>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-70px" }}
             transition={{ duration: 0.6 }}
-            className="space-y-4 sm:space-y-6"
+            className="space-y-7"
           >
-            <div className="glass p-5 sm:p-6 rounded-lg">
-              <h3 className="text-base sm:text-lg font-light mb-3 sm:mb-4 text-cyan-400 tracking-wide">
-                Education
-              </h3>
-              <div className="space-y-2 sm:space-y-3">
-                <div>
-                  <h4 className="font-normal text-white text-sm">
-                    Swinburne University of Technology
-                  </h4>
-                  <p className="text-gray-500 text-xs sm:text-sm font-light">Bachelor of Software Development</p>
-                  <p className="text-gray-500 text-xs sm:text-sm font-light">Graduated: December 2025</p>
-                  <p className="text-xs text-gray-600 font-light">Melbourne, Australia</p>
+            <div className="neu-card p-7 sm:p-8">
+              <div className="flex items-center gap-3.5 mb-5">
+                <div className="w-11 h-11 rounded-2xl neu-inset grid place-items-center text-accent shrink-0">
+                  <Briefcase size={18} />
                 </div>
+                <h3 className="text-base font-semibold text-ink">
+                  Current Role
+                </h3>
+              </div>
+              <h4 className="font-semibold text-ink text-sm mb-1">
+                Limitless Technologies
+              </h4>
+              <p className="text-ink-muted text-sm">
+                Project Manager &amp; Technical Lead
+              </p>
+              <div className="flex flex-wrap gap-2 mt-4">
+                <span className="px-3 py-1.5 rounded-full neu-inset-sm text-[12px] text-ink-muted">
+                  Product strategy
+                </span>
+                <span className="px-3 py-1.5 rounded-full neu-inset-sm text-[12px] text-ink-muted">
+                  Software architecture
+                </span>
+                <span className="px-3 py-1.5 rounded-full neu-inset-sm text-[12px] text-ink-muted">
+                  Technical direction
+                </span>
               </div>
             </div>
 
-            <div className="glass p-5 sm:p-6 rounded-lg">
-              <h3 className="text-base sm:text-lg font-light mb-3 sm:mb-4 text-purple-400 tracking-wide">
-                Current Focus
-              </h3>
-              <ul className="space-y-1.5 sm:space-y-2 text-gray-400 text-xs sm:text-sm font-light">
-                <li className="flex items-center gap-2">
-                  <span className="text-cyan-400">•</span> Pursuing full-stack development expertise
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="text-cyan-400">•</span> Advancing toward AI engineering specialization
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="text-cyan-400">•</span> Building clean, scalable architectures
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="text-cyan-400">•</span> Contributing to open-source projects
-                </li>
+            <div className="neu-card p-7 sm:p-8">
+              <div className="flex items-center gap-3.5 mb-5">
+                <div className="w-11 h-11 rounded-2xl neu-inset grid place-items-center text-accent shrink-0">
+                  <GraduationCap size={18} />
+                </div>
+                <h3 className="text-base font-semibold text-ink">Education</h3>
+              </div>
+              <div className="space-y-5">
+                {education.map((item, i) => (
+                  <div
+                    key={item.qualification}
+                    className={i > 0 ? "pt-5 border-t border-[var(--shadow-dark)]" : ""}
+                  >
+                    <h4 className="font-semibold text-ink text-sm mb-1">
+                      {item.qualification}
+                    </h4>
+                    <p className="text-ink-muted text-sm">{item.institution}</p>
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      {item.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="px-3 py-1.5 rounded-full neu-inset-sm text-[12px] text-ink-muted"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="neu-card p-7 sm:p-8">
+              <div className="flex items-center gap-3.5 mb-5">
+                <div className="w-11 h-11 rounded-2xl neu-inset grid place-items-center text-accent shrink-0">
+                  <Target size={18} />
+                </div>
+                <h3 className="text-base font-semibold text-ink">
+                  Particularly Interested In
+                </h3>
+              </div>
+              <ul className="space-y-3">
+                {interests.map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-start gap-3 text-sm text-ink-muted"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent mt-[7px] shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
               </ul>
             </div>
           </motion.div>
@@ -97,4 +203,3 @@ export default function About() {
     </section>
   );
 }
-

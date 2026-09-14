@@ -1,142 +1,241 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, Github, Linkedin, Send } from "lucide-react";
+import { Mail, Github, Linkedin, Send, Copy, Check } from "lucide-react";
+import { useState } from "react";
+import SectionHeading from "./SectionHeading";
+
+const EMAIL = "eshmam2016@gmail.com";
 
 const socialLinks = [
   {
     name: "GitHub",
     url: "https://github.com/eshmamnawar",
     icon: Github,
-    color: "from-gray-400 to-gray-600",
     description: "View my projects and contributions",
   },
   {
     name: "LinkedIn",
     url: "https://www.linkedin.com/in/eshmam-nawar-447016217/",
     icon: Linkedin,
-    color: "from-blue-400 to-blue-600",
     description: "Connect with me professionally",
   },
   {
     name: "Email",
-    url: "mailto:eshmam2016@gmail.com",
+    url: `mailto:${EMAIL}`,
     icon: Mail,
-    color: "from-cyan-400 to-cyan-600",
-    description: "eshmam2016@gmail.com",
+    description: EMAIL,
   },
 ];
 
-export default function Contact() {
-  return (
-    <section
-      id="contact"
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-black"
-    >
-      <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-light mb-3 sm:mb-4 tracking-tight px-4">
-            <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-              Get In Touch
-            </span>
-          </h2>
-          <div className="w-12 sm:w-16 h-px bg-gradient-to-r from-cyan-400 to-purple-400 mx-auto mb-3 sm:mb-4"></div>
-          <p className="text-gray-500 max-w-2xl mx-auto text-xs sm:text-sm font-light px-4">
-            I'm always open to discussing new projects, creative ideas, or
-            opportunities to be part of your visions. Feel free to reach out!
-          </p>
-        </motion.div>
+type Errors = { name?: string; email?: string; message?: string };
 
-        <div className="max-w-6xl mx-auto">
-          {/* Improved card grid layout */}
+export default function Contact() {
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [errors, setErrors] = useState<Errors>({});
+  const [copied, setCopied] = useState(false);
+
+  const validate = (): Errors => {
+    const next: Errors = {};
+    if (!form.name.trim()) next.name = "Please enter your name";
+    if (!form.email.trim()) next.email = "Please enter your email";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
+      next.email = "That doesn't look like a valid email";
+    if (form.message.trim().length < 10)
+      next.message = "Please write at least 10 characters";
+    return next;
+  };
+
+  // No backend here — this hands a pre-filled draft to the visitor's own
+  // mail client, which keeps the site fully static.
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const found = validate();
+    setErrors(found);
+    if (Object.keys(found).length > 0) return;
+
+    const subject = encodeURIComponent(`Portfolio enquiry from ${form.name}`);
+    const body = encodeURIComponent(
+      `${form.message}\n\n--\n${form.name}\n${form.email}`
+    );
+    window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
+  };
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      /* clipboard unavailable */
+    }
+  };
+
+  const field =
+    "w-full min-w-0 block neu-input rounded-2xl px-5 py-3.5 text-sm placeholder:text-ink-faint";
+
+  return (
+    <section id="contact" className="py-20 sm:py-24 px-4 sm:px-6 lg:px-8">
+      <div className="container-page">
+        <SectionHeading
+          eyebrow="Say hello"
+          title="Get In Touch"
+          subtitle="I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision."
+        />
+
+        <div className="grid lg:grid-cols-[1fr_1.15fr] gap-7 lg:gap-9 items-start min-w-0">
+          {/* Channels */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-10"
+            initial={{ opacity: 0, x: -34 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-70px" }}
+            transition={{ duration: 0.6 }}
+            className="space-y-5 min-w-0"
           >
-            {socialLinks.map((link, index) => {
+            {socialLinks.map((link) => {
               const Icon = link.icon;
+              const external = !link.url.startsWith("mailto:");
               return (
-                <motion.a
+                <a
                   key={link.name}
                   href={link.url}
-                  target={link.url.startsWith("mailto:") ? undefined : "_blank"}
-                  rel={link.url.startsWith("mailto:") ? undefined : "noopener noreferrer"}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  whileHover={{ y: -4 }}
-                  className="group relative flex flex-col items-center text-center p-6 sm:p-8 glass rounded-2xl border border-white/5 hover:border-white/20 transition-all duration-500 overflow-hidden"
+                  target={external ? "_blank" : undefined}
+                  rel={external ? "noopener noreferrer" : undefined}
+                  className="neu-card p-5 sm:p-6 flex items-center gap-4 sm:gap-5 group min-w-0"
                 >
-                  {/* Subtle background gradient on hover */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${link.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
-                  
-                  {/* Icon container */}
-                  <div className={`relative mb-4 sm:mb-5 p-4 sm:p-5 rounded-2xl bg-gradient-to-br ${link.color} text-white transition-all duration-500 group-hover:scale-110 group-hover:rotate-6`}>
-                    <Icon size={24} className="sm:w-7 sm:h-7" />
-                    {/* Icon glow effect */}
-                    <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${link.color} opacity-0 group-hover:opacity-30 blur-xl transition-opacity duration-500`} />
+                  <div className="w-[52px] h-[52px] shrink-0 rounded-2xl neu-inset grid place-items-center text-accent">
+                    <Icon size={19} />
                   </div>
-                  
-                  {/* Content */}
-                  <div className="relative z-10 w-full">
-                    <h3 className="text-white font-light text-lg sm:text-xl tracking-wide mb-1 sm:mb-2 group-hover:text-cyan-400 transition-colors duration-300">
+                  <div className="min-w-0">
+                    <h3 className="text-ink font-semibold text-sm mb-0.5">
                       {link.name}
                     </h3>
-                    <p className="text-gray-500 text-xs sm:text-sm font-light group-hover:text-gray-400 transition-colors duration-300 leading-relaxed break-words">
+                    <p className="text-ink-muted text-xs truncate">
                       {link.description}
                     </p>
                   </div>
-                  
-                  {/* Bottom accent line */}
-                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-cyan-400/0 to-transparent group-hover:via-cyan-400/50 transition-all duration-500" />
-                </motion.a>
+                </a>
               );
             })}
-          </motion.div>
-          
-          {/* Enhanced CTA Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="text-center px-4"
-          >
-            <a
-              href="mailto:eshmam2016@gmail.com"
-              className="group inline-flex items-center justify-center gap-2 sm:gap-3 px-6 sm:px-10 py-3 sm:py-4 bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-cyan-500/10 border border-cyan-500/20 hover:border-cyan-500/50 rounded-xl text-cyan-400 hover:text-cyan-300 transition-all duration-300 hover:scale-105 font-light text-xs sm:text-sm tracking-wide relative overflow-hidden w-full sm:w-auto"
+
+            <button
+              onClick={copyEmail}
+              className="w-full neu-btn rounded-2xl flex items-center justify-center gap-2.5 px-6 py-4 text-[13px] font-medium"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/5 to-cyan-500/0 group-hover:via-cyan-500/10 transition-all duration-300" />
-              <Send size={16} className="sm:w-[18px] sm:h-[18px] relative z-10" />
-              <span className="relative z-10">Send Me a Message</span>
-            </a>
+              {copied ? <Check size={16} /> : <Copy size={16} />}
+              <span>{copied ? "Email copied!" : "Copy email address"}</span>
+            </button>
+          </motion.div>
+
+          {/* Message composer */}
+          <motion.div
+            initial={{ opacity: 0, x: 34 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-70px" }}
+            transition={{ duration: 0.6 }}
+            className="neu-card p-7 sm:p-9 min-w-0"
+          >
+            <h3 className="text-lg font-semibold text-ink mb-1.5">
+              Send me a message
+            </h3>
+            <p className="text-xs text-ink-faint mb-7">
+              This opens a pre-filled draft in your own mail app.
+            </p>
+
+            <form onSubmit={handleSubmit} noValidate className="space-y-5">
+              <div>
+                <label
+                  htmlFor="name"
+                  className="block text-xs font-medium text-ink-muted mb-2.5"
+                >
+                  Name
+                </label>
+                <input
+                  id="name"
+                  type="text"
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  placeholder="Your name"
+                  className={field}
+                />
+                {errors.name && (
+                  <p className="text-xs mt-2" style={{ color: "var(--error)" }}>
+                    {errors.name}
+                  </p>
+                )}
+              </div>
+
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-xs font-medium text-ink-muted mb-2.5"
+                >
+                  Email
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  placeholder="you@example.com"
+                  className={field}
+                />
+                {errors.email && (
+                  <p className="text-xs mt-2" style={{ color: "var(--error)" }}>
+                    {errors.email}
+                  </p>
+                )}
+              </div>
+
+              <div>
+                <label
+                  htmlFor="message"
+                  className="block text-xs font-medium text-ink-muted mb-2.5"
+                >
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  rows={5}
+                  value={form.message}
+                  onChange={(e) => setForm({ ...form, message: e.target.value })}
+                  placeholder="Tell me about your project or opportunity..."
+                  className={`${field} resize-none`}
+                />
+                {errors.message && (
+                  <p className="text-xs mt-2" style={{ color: "var(--error)" }}>
+                    {errors.message}
+                  </p>
+                )}
+              </div>
+
+              <button
+                type="submit"
+                className="w-full neu-primary rounded-2xl flex items-center justify-center gap-2.5 px-6 py-4 text-sm font-semibold"
+              >
+                <Send size={16} />
+                <span>Compose message</span>
+              </button>
+            </form>
           </motion.div>
         </div>
 
-        <motion.div
+        <motion.footer
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="text-center mt-12 text-gray-600 text-sm font-light"
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mt-20 pt-10 text-center"
         >
-          <p>© {new Date().getFullYear()} Eshmam Nawar. All rights reserved.</p>
-          <p className="mt-2 text-sm">
+          <div className="neu-inset-sm h-[6px] w-36 rounded-full mx-auto mb-8" />
+          <p className="text-ink-muted text-sm">
+            © {new Date().getFullYear()} Eshmam Nawar. All rights reserved.
+          </p>
+          <p className="mt-2 text-xs text-ink-faint">
             Built with Next.js, TypeScript, and Tailwind CSS
           </p>
-        </motion.div>
+        </motion.footer>
       </div>
     </section>
   );
 }
-

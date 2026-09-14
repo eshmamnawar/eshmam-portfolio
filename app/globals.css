@@ -2,119 +2,303 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================================
+   NEUMORPHIC DESIGN TOKENS
+   Soft UI depends on the element sharing its parent's color and
+   being lit from a single consistent direction (top-left).
+   ============================================================ */
+
 :root {
-  --background: #000000;
-  --foreground: #e5e5e5;
-  --accent: #00f0ff;
-  --accent-secondary: #7c3aed;
-  --glass: rgba(255, 255, 255, 0.05);
-  --glass-border: rgba(255, 255, 255, 0.1);
+  --surface: #e8ebf0;
+  --surface-sunken: #e2e5eb;
+  --shadow-dark: #bcc0c9;
+  --shadow-light: #ffffff;
+
+  --ink: #23272e;
+  --ink-muted: #5c6371;
+  --ink-faint: #5f6672;
+
+  --accent: #4f46e5;
+  --accent-2: #db2777;
+  --accent-3: #7c3aed;
+  --accent-soft: rgba(79, 70, 229, 0.16);
+  --glow: rgba(124, 58, 237, 0.20);
+  /* Error text needs AA contrast; --accent-2 is tuned for gradients, not type */
+  --error: #be123c;
+
+  --radius: 18px;
+  --dist: 6px;
+  --blur: 14px;
+}
+
+[data-theme="dark"] {
+  --surface: #171a20;
+  --surface-sunken: #131519;
+  --shadow-dark: #0b0c0f;
+  --shadow-light: #23272f;
+
+  --ink: #eef1f6;
+  --ink-muted: #a9b0bd;
+  --ink-faint: #a0a8b6;
+
+  --accent: #818cf8;
+  --accent-2: #f472b6;
+  --accent-3: #a78bfa;
+  --accent-soft: rgba(129, 140, 248, 0.20);
+  --glow: rgba(167, 139, 250, 0.26);
+  --error: #fb7185;
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  border-color: transparent;
 }
 
 html {
   scroll-behavior: smooth;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  scroll-padding-top: 90px;
+  /* Section entrance animations translate cards past the viewport edge
+     mid-flight; without this they create a sideways scroll on phones. */
   overflow-x: hidden;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+body {
+  overflow-x: hidden;
+}
+
+body {
+  background-color: var(--surface);
+  color: var(--ink);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* ============================================================
+   CORE NEUMORPHIC SURFACES
+   ============================================================ */
+
+@layer components {
+  /* Extruded — the element pushes up out of the page */
+  .neu-raised {
+    background: var(--surface);
+    box-shadow: var(--dist) var(--dist) var(--blur) var(--shadow-dark),
+      calc(var(--dist) * -1) calc(var(--dist) * -1) var(--blur) var(--shadow-light);
   }
-  
-  .glass {
-    background: var(--glass);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border);
+
+  .neu-raised-sm {
+    background: var(--surface);
+    box-shadow: 3px 3px 7px var(--shadow-dark), -3px -3px 7px var(--shadow-light);
   }
-  
-  .glass-strong {
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+
+  .neu-raised-lg {
+    background: var(--surface);
+    box-shadow: 10px 10px 24px var(--shadow-dark), -10px -10px 24px var(--shadow-light);
   }
-  
-  .btn-minimal {
-    @apply px-6 py-2.5 text-sm font-medium transition-all duration-300;
-    @apply border border-white/10 hover:border-white/20;
-    @apply bg-white/5 hover:bg-white/10;
-    @apply text-gray-300 hover:text-white;
-    @apply backdrop-blur-sm;
+
+  /* Carved — the element sinks into the page */
+  .neu-inset {
+    background: var(--surface-sunken);
+    box-shadow: inset 4px 4px 9px var(--shadow-dark),
+      inset -4px -4px 9px var(--shadow-light);
   }
-  
-  .btn-primary {
-    @apply px-6 py-2.5 text-sm font-medium transition-all duration-300;
-    @apply bg-gradient-to-r from-cyan-500/20 to-purple-500/20;
-    @apply border border-cyan-500/30 hover:border-cyan-500/50;
-    @apply text-cyan-400 hover:text-cyan-300;
-    @apply backdrop-blur-sm;
+
+  .neu-inset-sm {
+    background: var(--surface-sunken);
+    box-shadow: inset 2px 2px 5px var(--shadow-dark),
+      inset -2px -2px 5px var(--shadow-light);
   }
-  
-  .text-glow {
-    text-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+
+  /* Interactive: raised at rest, pressed on click */
+  .neu-btn {
+    background: var(--surface);
+    color: var(--ink-muted);
+    box-shadow: 5px 5px 11px var(--shadow-dark), -5px -5px 11px var(--shadow-light);
+    transition: box-shadow 0.25s ease, color 0.25s ease, transform 0.25s ease;
   }
-  
-  .neon-border {
-    box-shadow: 0 0 10px rgba(0, 240, 255, 0.2),
-                0 0 20px rgba(0, 240, 255, 0.1),
-                inset 0 0 10px rgba(0, 240, 255, 0.05);
+
+  .neu-btn:hover {
+    color: var(--accent);
+    box-shadow: 7px 7px 15px var(--shadow-dark), -7px -7px 15px var(--shadow-light);
   }
-  
-  .contact-card {
-    @apply transition-all duration-500;
+
+  .neu-btn:active {
+    box-shadow: inset 4px 4px 9px var(--shadow-dark),
+      inset -4px -4px 9px var(--shadow-light);
+    transform: translateY(1px);
   }
-  
-  .contact-card:hover {
+
+  /* A button that reads as already "on" */
+  .neu-btn-active {
+    color: var(--accent);
+    box-shadow: inset 4px 4px 9px var(--shadow-dark),
+      inset -4px -4px 9px var(--shadow-light);
+  }
+
+  /* Card that lifts on hover */
+  .neu-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    box-shadow: 7px 7px 16px var(--shadow-dark), -7px -7px 16px var(--shadow-light);
+    transition: box-shadow 0.35s ease, transform 0.35s ease;
+  }
+
+  .neu-card:hover {
+    box-shadow: 11px 11px 26px var(--shadow-dark), -11px -11px 26px var(--shadow-light);
     transform: translateY(-4px);
   }
-  
-  .icon-hover {
-    @apply transition-all duration-300;
+
+  /* Text input sunk into the surface */
+  .neu-input {
+    background: var(--surface-sunken);
+    color: var(--ink);
+    box-shadow: inset 3px 3px 7px var(--shadow-dark),
+      inset -3px -3px 7px var(--shadow-light);
+    transition: box-shadow 0.25s ease;
+    outline: none;
   }
-  
-  .icon-hover:hover {
-    transform: scale(1.1) rotate(5deg);
+
+  .neu-input::placeholder {
+    color: var(--ink-faint);
+  }
+
+  .neu-input:focus {
+    box-shadow: inset 4px 4px 9px var(--shadow-dark),
+      inset -4px -4px 9px var(--shadow-light),
+      0 0 0 2px var(--accent-soft);
+  }
+
+  /* Accent-filled primary action */
+  .neu-primary {
+    background: linear-gradient(
+      115deg,
+      var(--accent) 0%,
+      var(--accent-3) 52%,
+      var(--accent-2) 100%
+    );
+    color: #ffffff;
+    box-shadow: 5px 5px 12px var(--shadow-dark), -5px -5px 12px var(--shadow-light);
+    transition: box-shadow 0.25s ease, transform 0.25s ease, filter 0.25s ease;
+  }
+
+  .neu-primary:hover {
+    filter: brightness(1.08);
+    box-shadow: 7px 7px 16px var(--shadow-dark), -7px -7px 16px var(--shadow-light);
+  }
+
+  .neu-primary:active {
+    transform: translateY(1px);
+    box-shadow: inset 3px 3px 8px rgba(0, 0, 0, 0.3);
   }
 }
 
-/* Custom scrollbar */
+/* ============================================================
+   LAYOUT CONTAINER
+   Capped for readable line length, but allowed to widen on very
+   large displays so the page doesn't sit in a narrow ribbon.
+   ============================================================ */
+
+.container-page {
+  width: 100%;
+  max-width: 1180px;
+  margin-inline: auto;
+}
+
+@media (min-width: 1700px) {
+  .container-page {
+    max-width: 1340px;
+  }
+}
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+
+.gradient-ramp {
+  background: linear-gradient(
+    115deg,
+    var(--accent) 0%,
+    var(--accent-3) 48%,
+    var(--accent-2) 100%
+  );
+}
+
+.text-gradient {
+  background: linear-gradient(
+    115deg,
+    var(--accent) 0%,
+    var(--accent-3) 48%,
+    var(--accent-2) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Soft colour bloom used behind focal elements */
+.gradient-glow {
+  position: relative;
+}
+.gradient-glow::before {
+  content: "";
+  position: absolute;
+  inset: -14%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, var(--glow), transparent 68%);
+  filter: blur(34px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Gradient hairline used under section headings */
+.gradient-rule {
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--accent),
+    var(--accent-3),
+    var(--accent-2),
+    transparent
+  );
+}
+
+/* Keyboard focus must stay visible — neumorphism's soft edges
+   are not enough of an affordance on their own. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 11px;
 }
-
 ::-webkit-scrollbar-track {
-  background: #000000;
+  background: var(--surface-sunken);
 }
-
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 240, 255, 0.2);
-  border-radius: 4px;
+  background: var(--surface);
+  border-radius: 10px;
+  box-shadow: inset 2px 2px 4px var(--shadow-dark),
+    inset -2px -2px 4px var(--shadow-light);
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 240, 255, 0.3);
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+.animate-float {
+  animation: float 4.5s ease-in-out infinite;
 }
 
-/* Minimal selection */
-::selection {
-  background: rgba(0, 240, 255, 0.2);
-  color: #00f0ff;
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .animate-float { animation: none; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
-

@@ -1,7 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Github, ExternalLink } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Github, ExternalLink, Star, FolderGit2 } from "lucide-react";
+import { useMemo, useState } from "react";
+import SectionHeading from "./SectionHeading";
 
 const projects = [
   {
@@ -43,109 +45,142 @@ const projects = [
 ];
 
 export default function Projects() {
+  const [filter, setFilter] = useState("All");
+
+  // Build the filter list from the project data so it can never drift.
+  const tags = useMemo(() => {
+    const all = new Set<string>();
+    projects.forEach((p) => p.tech.forEach((t) => all.add(t)));
+    return ["All", ...Array.from(all).sort()];
+  }, []);
+
+  const visible =
+    filter === "All"
+      ? projects
+      : projects.filter((p) => p.tech.includes(filter));
+
   return (
-    <section
-      id="projects"
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-black"
-    >
-      <div className="max-w-7xl mx-auto">
+    <section id="projects" className="py-20 sm:py-24 px-4 sm:px-6 lg:px-8">
+      <div className="container-page">
+        <SectionHeading
+          eyebrow="What I've built"
+          title="Featured Projects"
+          subtitle="A collection of projects showcasing my skills in software development, AI, and web technologies."
+        />
+
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.5 }}
+          className="flex flex-wrap justify-center gap-2.5 mb-12"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-light mb-3 sm:mb-4 tracking-tight px-4">
-            <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-              Featured Projects
-            </span>
-          </h2>
-          <div className="w-12 sm:w-16 h-px bg-gradient-to-r from-cyan-400 to-purple-400 mx-auto"></div>
-          <p className="text-gray-500 mt-3 sm:mt-4 max-w-2xl mx-auto text-xs sm:text-sm font-light px-4">
-            A collection of projects showcasing my skills in software development,
-            AI, and web technologies
-          </p>
-        </motion.div>
-
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-          {projects.map((project, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className={`glass p-5 sm:p-6 rounded-lg hover:border-cyan-500/20 transition-all duration-300 ${
-                project.featured ? "lg:col-span-1" : ""
+          {tags.map((tag) => (
+            <button
+              key={tag}
+              onClick={() => setFilter(tag)}
+              className={`px-5 min-h-[44px] rounded-xl text-[13px] font-medium inline-flex items-center justify-center ${
+                filter === tag ? "neu-btn neu-btn-active" : "neu-btn"
               }`}
             >
-              {project.featured && (
-                <span className="inline-block px-2.5 py-1 bg-cyan-500/10 text-cyan-400 rounded-md text-xs mb-3 sm:mb-4 border border-cyan-500/20 font-light">
-                  Featured
-                </span>
-              )}
-              <h3 className="text-lg sm:text-xl font-light text-white mb-2 sm:mb-3 tracking-wide">
-                {project.title}
-              </h3>
-              <p className="text-gray-500 mb-3 sm:mb-4 leading-relaxed text-xs sm:text-sm font-light">
-                {project.description}
-              </p>
-              <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-6">
-                {project.tech.map((tech) => (
-                  <span
-                    key={tech}
-                    className="px-2 sm:px-2.5 py-0.5 sm:py-1 bg-white/5 text-gray-400 rounded-md text-xs border border-white/10 font-light"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-              <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-minimal rounded-md flex items-center justify-center gap-2 text-xs w-full sm:w-auto"
-                >
-                  <Github size={16} />
-                  <span>Code</span>
-                </a>
-                {project.demo && (
+              {tag}
+            </button>
+          ))}
+        </motion.div>
+
+        <motion.div layout className="grid md:grid-cols-2 gap-6 sm:gap-7">
+          <AnimatePresence mode="popLayout">
+            {visible.map((project) => (
+              <motion.article
+                key={project.title}
+                layout
+                initial={{ opacity: 0, y: 34 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.94 }}
+                transition={{ duration: 0.45 }}
+                className="neu-card p-7 sm:p-8 flex flex-col"
+              >
+                <div className="flex items-start justify-between gap-4 mb-5">
+                  <div className="w-12 h-12 rounded-2xl neu-inset grid place-items-center text-accent shrink-0">
+                    <FolderGit2 size={19} />
+                  </div>
+                  {project.featured && (
+                    <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full neu-inset-sm text-[12px] text-accent font-medium">
+                      <Star size={11} />
+                      Featured
+                    </span>
+                  )}
+                </div>
+
+                <h3 className="text-lg sm:text-xl font-semibold text-ink mb-3">
+                  {project.title}
+                </h3>
+                <p className="text-ink-muted mb-6 leading-relaxed text-sm flex-grow">
+                  {project.description}
+                </p>
+
+                <div className="flex flex-wrap gap-2 mb-7">
+                  {project.tech.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-3.5 py-1.5 rounded-full neu-inset-sm text-ink-muted text-[12px] font-medium"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="flex flex-wrap gap-3">
                   <a
-                    href={project.demo}
+                    href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-primary rounded-md flex items-center justify-center gap-2 text-xs w-full sm:w-auto"
+                    className="neu-btn rounded-xl flex items-center justify-center gap-2 px-5 min-h-[44px] text-[13px] font-medium"
                   >
-                    <ExternalLink size={16} />
-                    <span>Demo</span>
+                    <Github size={15} />
+                    <span>Code</span>
                   </a>
-                )}
-              </div>
-            </motion.div>
-          ))}
-        </div>
+                  {project.demo && (
+                    <a
+                      href={project.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="neu-primary rounded-xl flex items-center justify-center gap-2 px-5 min-h-[44px] text-[13px] font-medium"
+                    >
+                      <ExternalLink size={15} />
+                      <span>Demo</span>
+                    </a>
+                  )}
+                </div>
+              </motion.article>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+
+        {visible.length === 0 && (
+          <p className="text-center text-ink-muted text-sm py-12">
+            No projects tagged &ldquo;{filter}&rdquo; yet.
+          </p>
+        )}
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-center mt-12"
+          transition={{ duration: 0.55, delay: 0.2 }}
+          className="text-center mt-14"
         >
           <a
             href="https://github.com/eshmamnawar"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary rounded-md inline-flex items-center gap-2"
+            className="neu-btn rounded-2xl inline-flex items-center gap-2.5 px-8 py-4 text-sm font-medium"
           >
-            <Github size={18} />
-            <span>View All Projects on GitHub</span>
+            <Github size={17} />
+            <span>View all projects on GitHub</span>
           </a>
         </motion.div>
       </div>
     </section>
   );
 }
-
