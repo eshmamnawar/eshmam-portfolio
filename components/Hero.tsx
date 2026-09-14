@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, ArrowDown } from "lucide-react";
 import { useEffect, useState } from "react";
+import DeliveryLoop from "./DeliveryLoop";
 
 const roles = [
   "Project Manager",
@@ -146,15 +147,7 @@ export default function Hero() {
             transition={{ duration: 0.75, delay: 0.3 }}
             className="hidden lg:flex justify-center"
           >
-            <div className="gradient-glow relative w-[330px] h-[330px] rounded-full neu-raised-lg grid place-items-center animate-float">
-              <div className="w-[260px] h-[260px] rounded-full neu-inset grid place-items-center">
-                <div className="w-[190px] h-[190px] rounded-full neu-raised grid place-items-center">
-                  <span className="text-6xl font-bold text-gradient select-none">
-                    EN
-                  </span>
-                </div>
-              </div>
-            </div>
+            <DeliveryLoop />
           </motion.div>
         </div>
 

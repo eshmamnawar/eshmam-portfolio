@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { GraduationCap, Target, MapPin, Briefcase } from "lucide-react";
+import { GraduationCap, Target, Briefcase } from "lucide-react";
 import SectionHeading from "./SectionHeading";
 
 const education = [
@@ -102,11 +102,6 @@ export default function About() {
               </span>{" "}
               to build and lead impactful technology products.
             </p>
-
-            <div className="flex items-center gap-2.5 pt-2 text-xs text-ink-faint">
-              <MapPin size={14} />
-              <span>Melbourne, Australia</span>
-            </div>
           </motion.div>
 
           <motion.div
