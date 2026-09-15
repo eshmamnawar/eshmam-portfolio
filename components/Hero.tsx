@@ -54,16 +54,6 @@ export default function Hero() {
             transition={{ duration: 0.6 }}
             className="text-center lg:text-left"
           >
-            <motion.span
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.15 }}
-              className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full neu-inset-sm text-xs text-ink-muted mb-7"
-            >
-              <span className="w-2 h-2 rounded-full gradient-ramp animate-pulse" />
-              Project Manager &amp; Technical Lead @ Limitless Technologies Inc.
-            </motion.span>
-
             <motion.h1
               className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.2rem] font-bold tracking-tight leading-[1.05] mb-5 text-ink"
               initial={{ opacity: 0 }}

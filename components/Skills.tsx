@@ -49,7 +49,7 @@ const toolbox: Cluster[] = [
     group: "AI / ML",
     icon: BrainCircuit,
     hue: "var(--accent-2)",
-    items: ["PyTorch", "Machine Learning"],
+    items: ["Machine Learning"],
   },
   {
     group: "Tools",
