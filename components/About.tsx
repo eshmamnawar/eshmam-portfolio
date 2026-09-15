@@ -6,18 +6,18 @@ import SectionHeading from "./SectionHeading";
 
 const education = [
   {
-    qualification: "Bachelor of Software Development",
+    qualification: "Bachelor of Computer Science",
     institution: "Swinburne University of Technology",
-    tags: ["Graduated Dec 2025", "Melbourne, AU"],
+    tags: ["Major in Software Development", "Graduated Dec 2025", "Melbourne, AU"],
   },
   {
     qualification: "Higher Secondary Certificate (HSC)",
-    institution: "Milestone School and College",
+    institution: "Milestone College",
     tags: ["GPA 5.00 / 5.00", "Session 2018-2019"],
   },
   {
     qualification: "Secondary School Certificate (SSC)",
-    institution: "Milestone School and College",
+    institution: "Milestone College",
     tags: ["GPA 5.00 / 5.00", "Session 2016-2017"],
   },
 ];
@@ -44,16 +44,29 @@ export default function About() {
             className="neu-card p-7 sm:p-9 space-y-5"
           >
             <p className="text-sm sm:text-base text-ink-muted leading-relaxed">
-              Hi, I&apos;m <span className="text-accent font-semibold">Eshmam Nawar</span>, a{" "}
-              <span className="text-ink font-semibold">
-                Software Development graduate from Swinburne University of
-                Technology
-              </span>{" "}
-              and currently working as a{" "}
+              Hey, I&apos;m{" "}
+              <span className="text-accent font-semibold">Eshmam Nawar</span>,
+              currently working as a{" "}
               <span className="text-accent font-semibold">
-                Project Manager &amp; Technical Lead at Limitless Technologies
+                Project Manager &amp; Technical Lead
+              </span>{" "}
+              at{" "}
+              <span className="text-ink font-semibold">
+                Limitless Technologies Inc.
               </span>
-              .
+              , a U.S. based fintech startup. I&apos;m also a{" "}
+              <span className="text-ink font-semibold">
+                Computer Science graduate
+              </span>
+              , majoring in{" "}
+              <span className="text-ink font-semibold">
+                Software Development
+              </span>
+              , from{" "}
+              <span className="text-ink font-semibold">
+                Swinburne University of Technology
+              </span>{" "}
+              in Melbourne, Australia.
             </p>
 
             <p className="text-sm sm:text-base text-ink-muted leading-relaxed">
@@ -121,7 +134,7 @@ export default function About() {
                 </h3>
               </div>
               <h4 className="font-semibold text-ink text-sm mb-1">
-                Limitless Technologies
+                Limitless Technologies Inc.
               </h4>
               <p className="text-ink-muted text-sm">
                 Project Manager &amp; Technical Lead
@@ -131,7 +144,7 @@ export default function About() {
                   Product strategy
                 </span>
                 <span className="px-3 py-1.5 rounded-full neu-inset-sm text-[12px] text-ink-muted">
-                  Software architecture
+                  Solution architecture
                 </span>
                 <span className="px-3 py-1.5 rounded-full neu-inset-sm text-[12px] text-ink-muted">
                   Technical direction

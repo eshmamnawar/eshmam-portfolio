@@ -72,9 +72,9 @@ const limitlessContributions: Contribution[] = [
   },
   {
     icon: Settings2,
-    label: "Tooling & operations",
+    label: "Infrastructure & operations",
     detail:
-      "Establish project and company tooling for collaboration, documentation, DevOps, design, accounting, HR, and operational workflows.",
+      "Build the company's internal infrastructure and tooling for collaboration, design, and operational workflows, and plan for company expansion.",
   },
 ];
 
@@ -93,7 +93,7 @@ type Experience = {
 const experiences: Experience[] = [
   {
     title: "Project Manager & Technical Lead",
-    company: "Limitless Technologies",
+    company: "Limitless Technologies Inc.",
     location: "United States",
     period: "Present",
     icon: Rocket,
@@ -115,13 +115,13 @@ const experiences: Experience[] = [
     type: "Fellow & Resident",
   },
   {
-    title: "Software Development Graduate",
+    title: "Bachelor of Computer Science",
     company: "Swinburne University of Technology",
     location: "Melbourne, Australia",
     period: "December 2025",
     icon: GraduationCap,
     description: [
-      "Completed Bachelor's degree in Software Development",
+      "Completed a Bachelor of Computer Science, majoring in Software Development",
       "Specialized in modern web technologies, AI, and software architecture",
       "Built multiple projects and contributed to the developer community",
     ],

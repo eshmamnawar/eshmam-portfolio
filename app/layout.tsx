@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Eshmam Nawar | Software Developer",
   description:
-    "Project Manager & Technical Lead at Limitless Technologies, a US fintech startup. Software Development graduate from Swinburne University of Technology, working at the intersection of product, business, and technology.",
+    "Project Manager & Technical Lead at Limitless Technologies Inc., a US fintech startup. Computer Science graduate from Swinburne University of Technology, working at the intersection of product, business, and technology.",
   keywords: [
     "Eshmam Nawar",
     "Project Manager",

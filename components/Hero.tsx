@@ -61,7 +61,7 @@ export default function Hero() {
               className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full neu-inset-sm text-xs text-ink-muted mb-7"
             >
               <span className="w-2 h-2 rounded-full gradient-ramp animate-pulse" />
-              Project Manager &amp; Technical Lead @ Limitless Technologies
+              Project Manager &amp; Technical Lead @ Limitless Technologies Inc.
             </motion.span>
 
             <motion.h1
@@ -106,7 +106,7 @@ export default function Hero() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.55 }}
             >
-              Software Development graduate of Swinburne University of
+              Computer Science graduate of Swinburne University of
               Technology · Former Software Engineering Resident at Headstarter
               AI
             </motion.p>
